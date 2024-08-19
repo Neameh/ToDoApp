@@ -21,18 +21,11 @@ namespace ToDoApp.Application.Logic.Queries.ToDoListQuery
         }
         public async Task<List<ToDoListDTO>> Handle(GetToDoListQuery query, CancellationToken cancellationToken)
         {
-            try
-            {
-                var toDoList = await _dbContext.ToDoLists.ToListAsync(cancellationToken);
-                var result = toDoList.Select(x => new ToDoListDTO { Id = x.ToDoListId, Title = x.Title, Description = x.Description }).ToList();
 
+            var toDoList = await _dbContext.ToDoLists.ToListAsync(cancellationToken);
+            var result = toDoList.Select(x => new ToDoListDTO { Id = x.ToDoListId, Title = x.Title, Description = x.Description }).ToList();
+            return result;
 
-                return result;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
     }
 }

@@ -19,19 +19,11 @@ namespace ToDoApp.Application.Logic.Commands.ToDoListCommand
 
         public async Task Handle(DeleteToDoListCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                var toDoList = await _dbContext.ToDoLists.FindAsync(request.Id);
-                if (toDoList == null) { throw new DomainException("Nor Found"); }
-                _dbContext.ToDoLists.Remove(toDoList);
-                await _dbContext.SaveChangesAsync();
 
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            var toDoList = await _dbContext.ToDoLists.FindAsync(request.Id);
+            if (toDoList == null) { throw new NotFoundException("ToDoList Not Found"); }
+            _dbContext.ToDoLists.Remove(toDoList);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -17,32 +17,26 @@ namespace ToDoApp.Application.Logic.Commands.ToDoListCommand
         {
             _dbContext = dbContext;
         }
+        // Result
+        // Exception Flow
         public async Task<ToDoListDTO> Handle(AddToDoListCommand request, CancellationToken cancellationToken)
         {
-            try
+
+            var entity = new ToDoList();
+
+            entity.Title = request.Title;
+            entity.Description = request.Description;
+
+            await _dbContext.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
+
+            return new ToDoListDTO
             {
+                Id = entity.ToDoListId,
+                Title = entity.Title,
+                Description = entity.Description
+            };
 
-                var entity = new ToDoList();
-
-                entity.Title = request.Title;
-                entity.Description = request.Description;
-
-
-                await _dbContext.AddAsync(entity);
-                await _dbContext.SaveChangesAsync();
-
-                return new ToDoListDTO 
-                { 
-                    Id=entity.ToDoListId, 
-                    Title = entity.Title, 
-                    Description = entity.Description 
-                };
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
         }
     }
 }

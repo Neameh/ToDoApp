@@ -83,6 +83,25 @@ namespace ToDoApp.Web.Controllers
                 throw;
             }
         }
+        [HttpPut]
+        public async Task<ActionResult<ToDoListDTO>> Update(UpdateToDoListCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(new UpdateToDoListCommand() 
+                { 
+                    Id = command.Id,
+                    Description = command.Description,
+                    Title= command.Title,
+                });
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
     }
 }

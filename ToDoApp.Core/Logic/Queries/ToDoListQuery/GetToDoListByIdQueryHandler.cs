@@ -22,25 +22,18 @@ namespace ToDoApp.Application.Logic.Queries.ToDoListQuery
 
         public async Task<ToDoListDTO> Handle(GetToDoListByIdQuery request, CancellationToken cancellationToken)
         {
-            try
+            var result = await _dbCobtext.ToDoLists.FindAsync(request.Id);
+            if (result == null)
             {
-                var result = await _dbCobtext.ToDoLists.FindAsync(request.Id);
-                if (result == null)
-                {
-                    throw new DomainException("ToDoList is not found");
-                }
-                return new ToDoListDTO
-                {
-                    Id = result.ToDoListId,
-                    Title=result.Title,
-                    Description=result.Description,
-                };
+                throw new NotFoundException("ToDoList is not found");
             }
-            catch (Exception)
+            return new ToDoListDTO
             {
+                Id = result.ToDoListId,
+                Title = result.Title,
+                Description = result.Description,
+            };
 
-                throw new DomainException("There is an error");
-            }
         }
     }
 }
