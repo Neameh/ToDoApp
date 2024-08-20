@@ -5,16 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Application.DTOs;
-using ToDoApp.Application.DTOs.ToDoList;
-using ToDoApp.Domain.Models;
+using ToDoApp.Application.DTOs.ToDoItem;
 
-namespace ToDoApp.Application.Logic.Commands.ToDoListCommand
+namespace ToDoApp.Application.Logic.Commands.ToDoItemCommand
 {
-    public class AddToDoListCommand : IRequest<ToDoListDTO>
+    public class AddToDoItemCommand : IRequest<ToDoItemDTO>
     {
-        
         public string Title { get; set; }
         public string Description { get; set; }
+
+        public int ToDoListId { get; set; }
     }
 }
-    

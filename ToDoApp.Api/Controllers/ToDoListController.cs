@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ToDoApp.Application.DTOs;
+using ToDoApp.Application.DTOs.ToDoList;
 using ToDoApp.Application.Logic.Commands.ToDoListCommand;
 using ToDoApp.Application.Logic.Queries.ToDoListQuery;
 using ToDoApp.Domain.Models;
@@ -19,10 +20,11 @@ namespace ToDoApp.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ToDoListDTO>> Create(AddToDoListCommand command)
+        public async Task<ActionResult<ToDoListDTO>> Create(ToDoListRequestDTO request)
         {
             try
             {
+                var command = new AddToDoListCommand { Title = request.Title, Description = request.Description };
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -30,6 +32,7 @@ namespace ToDoApp.Web.Controllers
             {
 
                 return BadRequest();
+
             }
         }
         [HttpGet]
@@ -84,15 +87,20 @@ namespace ToDoApp.Web.Controllers
             }
         }
         [HttpPut]
-        public async Task<ActionResult<ToDoListDTO>> Update(UpdateToDoListCommand command)
+        public async Task<ActionResult<ToDoListDTO>> Update(ToDoListDTO request)
         {
             try
             {
-                var result = await _mediator.Send(new UpdateToDoListCommand() 
-                { 
+                var command = new UpdateToDoListCommand
+                {
+                    Title = request.Title,
+                    Description = request.Description
+                };
+                var result = await _mediator.Send(new UpdateToDoListCommand()
+                {
                     Id = command.Id,
                     Description = command.Description,
-                    Title= command.Title,
+                    Title = command.Title,
                 });
                 return Ok(result);
             }
