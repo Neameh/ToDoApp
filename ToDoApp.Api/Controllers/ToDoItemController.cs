@@ -21,8 +21,34 @@ namespace ToDoApp.Web.Controllers
         {
             try
             {
-                var command = new AddToDoItemCommand { Title = request.Title, Description = request.Description,ToDoListId=listId };
+                var command = new AddToDoItemCommand
+                {
+                    Title = request.Title,
+                    Description = request.Description,
+                    ToDoListId = listId
+                };
                 var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpPut]
+        public async Task<ActionResult<ToDoItemDTO>> Update(int listId, ToDoItemDTO request)
+        {
+            try
+            {
+                var command = new UpdateToDoItemCommand
+                {
+                    Id = request.Id,
+                    listId = listId,
+                    Title = request.Title,
+                    Description = request.Description
+                };
+                var result =await _mediator.Send(command);
                 return Ok(result);
             }
             catch (Exception)
