@@ -71,7 +71,7 @@ namespace ToDoApp.Web.Controllers
             }
         }
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
@@ -79,6 +79,7 @@ namespace ToDoApp.Web.Controllers
                 {
                     Id = id
                 });
+               return Ok();
             }
             catch (Exception)
             {

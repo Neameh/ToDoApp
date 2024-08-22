@@ -95,5 +95,23 @@ namespace ToDoApp.Web.Controllers
                 throw;
             }
         }
+        [HttpDelete("{listId}/{id}")]
+        public async Task<ActionResult> Delete(int listId, int id)
+        {
+            try
+            {
+                await _mediator.Send(new DeleteToDoItemCommand
+                {
+                    listId = listId,
+                    Id = id
+                });
+                return Ok();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
