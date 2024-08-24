@@ -26,7 +26,8 @@ namespace ToDoApp.Web.Controllers
                 {
                     Title = request.Title,
                     Description = request.Description,
-                    ToDoListId = listId
+                    ToDoListId = listId,
+                    IsCompleted = request.IsCompleted
                 };
                 var result = await _mediator.Send(command);
                 return Ok(result);
@@ -38,16 +39,16 @@ namespace ToDoApp.Web.Controllers
             }
         }
         [HttpPut]
-        public async Task<ActionResult<ToDoItemDTO>> Update(int listId, ToDoItemDTO request)
+        public async Task<ActionResult<ToDoItemDTO>> Update(ToDoItemDTO request)
         {
             try
             {
                 var command = new UpdateToDoItemCommand
                 {
                     Id = request.Id,
-                    listId = listId,
                     Title = request.Title,
-                    Description = request.Description
+                    Description = request.Description,
+                    IsCompleted = request.IsCompleted
                 };
                 var result =await _mediator.Send(command);
                 return Ok(result);
@@ -58,7 +59,7 @@ namespace ToDoApp.Web.Controllers
                 throw;
             }
         }
-        [HttpGet]
+        [HttpGet("GetAll/{listId}")]
         public async Task<ActionResult<List<ToDoItemDTO>>> GetAll(int listId)
         {
             try
@@ -76,15 +77,14 @@ namespace ToDoApp.Web.Controllers
                 throw;
             }
         }
-        [HttpGet("{listId}")]
-        public async Task<ActionResult<ToDoItemDTO>> GetById(int listId,int Id)
+        [HttpGet("GetById/{id}")]
+        public async Task<ActionResult<ToDoItemDTO>> GetById(int id)
         {
             try
             {
                 var command = new GetToDoItemByIdQuery
                 {
-                    listId = listId,
-                    Id = Id,
+                    Id = id,
                 };
                 var result = await _mediator.Send(command);
                 return Ok(result);
@@ -95,14 +95,13 @@ namespace ToDoApp.Web.Controllers
                 throw;
             }
         }
-        [HttpDelete("{listId}/{id}")]
-        public async Task<ActionResult> Delete(int listId, int id)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 await _mediator.Send(new DeleteToDoItemCommand
                 {
-                    listId = listId,
                     Id = id
                 });
                 return Ok();

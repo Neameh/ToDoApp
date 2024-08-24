@@ -37,6 +37,7 @@ namespace ToDoApp.Application.Logic.Commands.ToDoItemCommand
                 entity.Title = request.Title;
                 entity.Description = request.Description;
                 entity.ToDoListId = request.ToDoListId;
+                entity.IsCompleted = request.IsCompleted;
             }
             await _dbContext.ToDoItems.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
@@ -46,8 +47,8 @@ namespace ToDoApp.Application.Logic.Commands.ToDoItemCommand
                 Id=entity.ToDoItemId,
                 Title = entity.Title,
                 Description = entity.Description,
+                IsCompleted = entity.IsCompleted,
             };
-
         }
     }
 }

@@ -36,6 +36,7 @@ namespace ToDoApp.Application.Logic.Queries.ToDoItemQuery
                 Id = x.ToDoItemId,
                 Title = x.Title,
                 Description=x.Description,
+                IsCompleted = x.IsCompleted,
             }).ToList();
 
             return result;

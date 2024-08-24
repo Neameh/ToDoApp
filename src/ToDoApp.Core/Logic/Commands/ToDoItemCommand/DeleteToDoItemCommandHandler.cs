@@ -19,13 +19,7 @@ namespace ToDoApp.Application.Logic.Commands.ToDoItemCommand
 
         public async Task Handle(DeleteToDoItemCommand request, CancellationToken cancellationToken)
         {
-            var List = await _dbContext.ToDoLists.FindAsync(request.listId);
-            if (List == null)
-            {
-                throw new NotFoundException("");
-            }
-            // Why it should not be await
-            var toDoItem =  _dbContext.ToDoItems.FirstOrDefault(x=>x.ToDoListId ==request.listId && x.ToDoItemId == request.Id);
+            var toDoItem = await _dbContext.ToDoItems.FindAsync(request.Id);
             if (toDoItem == null)
             {
                 throw new NotFoundException("To Do Item Not Found");

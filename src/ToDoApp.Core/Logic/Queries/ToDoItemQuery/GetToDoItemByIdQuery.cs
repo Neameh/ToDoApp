@@ -11,6 +11,5 @@ namespace ToDoApp.Application.Logic.Queries.ToDoItemQuery
     public class GetToDoItemByIdQuery : IRequest<ToDoItemDTO>
     {
         public int Id { get; set; }
-        public int listId { get; set; }
     }
 }

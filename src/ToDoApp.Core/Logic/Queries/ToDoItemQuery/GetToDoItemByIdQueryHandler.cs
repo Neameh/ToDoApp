@@ -19,13 +19,8 @@ namespace ToDoApp.Application.Logic.Queries.ToDoItemQuery
         }
         public async Task<ToDoItemDTO> Handle(GetToDoItemByIdQuery request, CancellationToken cancellationToken)
         {
-            var List = await _dbContext.ToDoLists.FindAsync(request.listId);
-            if (List == null)
-            {
-                throw new NotFoundException("List Not Found");
-            }
-            // ==========
-            var toDoItem = _dbContext.ToDoItems.FirstOrDefault(x=>x.ToDoListId == request.listId && x.ToDoItemId == request.Id);
+
+            var toDoItem = await _dbContext.ToDoItems.FindAsync(request.Id);
             if (toDoItem == null)
             {
                 throw new NotFoundException("ToDoItem Not Found");
@@ -34,7 +29,8 @@ namespace ToDoApp.Application.Logic.Queries.ToDoItemQuery
             {
                 Title = toDoItem.Title,
                 Description = toDoItem.Description,
-                Id = toDoItem.ToDoItemId
+                Id = toDoItem.ToDoItemId,
+                IsCompleted=toDoItem.IsCompleted,
             };
             return result;
         }

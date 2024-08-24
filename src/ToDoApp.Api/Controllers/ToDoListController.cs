@@ -92,16 +92,12 @@ namespace ToDoApp.Web.Controllers
         {
             try
             {
-                var command = new UpdateToDoListCommand
-                {
-                    Title = request.Title,
-                    Description = request.Description
-                };
+           
                 var result = await _mediator.Send(new UpdateToDoListCommand()
                 {
-                    Id = command.Id,
-                    Description = command.Description,
-                    Title = command.Title,
+                    Id = request.Id,
+                    Description = request.Description,
+                    Title = request.Title,
                 });
                 return Ok(result);
             }
