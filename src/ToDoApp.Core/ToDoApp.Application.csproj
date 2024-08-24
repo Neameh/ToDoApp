@@ -17,4 +17,8 @@
     <ProjectReference Include="..\ToDoApp.Infrastructure\ToDoApp.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Behaviors\" />
+  </ItemGroup>
+
 </Project>
