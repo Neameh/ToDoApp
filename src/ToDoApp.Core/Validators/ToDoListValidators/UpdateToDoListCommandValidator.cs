@@ -8,9 +8,9 @@ using ToDoApp.Application.Logic.Commands.ToDoListCommand;
 
 namespace ToDoApp.Application.Validators.ToDoListValidators
 {
-    public class AddToDoListCommandValidator: AbstractValidator<AddToDoListCommand>
+    public class UpdateToDoListCommandValidator : AbstractValidator<UpdateToDoListCommand>
     {
-        public AddToDoListCommandValidator()
+        public UpdateToDoListCommandValidator()
         {
             RuleFor(x => x.Title).NotEmpty().WithMessage("Title Could not be empty!");
             RuleFor(x => x.Description).NotEmpty().WithMessage("Description Could not be empty!");
