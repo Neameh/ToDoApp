@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using ToDoApp.Application.Behaviors;
 using ToDoApp.Application.Logic.Commands.ToDoListCommand;
 using ToDoApp.Infrastructure;
 
@@ -15,7 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddMediatR(c => c.RegisterServicesFromAssembly(typeof(AddToDoListCommandHandler).Assembly));
-
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddMvc();
 var app = builder.Build();
 
