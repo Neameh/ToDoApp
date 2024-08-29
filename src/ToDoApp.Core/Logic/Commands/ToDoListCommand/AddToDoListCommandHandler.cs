@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.DTOs.ToDoList;
+using ToDoApp.Application.Mappers;
 using ToDoApp.Domain.Models;
 using ToDoApp.Infrastructure;
 
@@ -31,12 +32,7 @@ namespace ToDoApp.Application.Logic.Commands.ToDoListCommand
             await _dbContext.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
-            return new ToDoListDTO
-            {
-                Id = entity.ToDoListId,
-                Title = entity.Title,
-                Description = entity.Description
-            };
+            return entity.ToToDoListDTO();
 
         }
     }

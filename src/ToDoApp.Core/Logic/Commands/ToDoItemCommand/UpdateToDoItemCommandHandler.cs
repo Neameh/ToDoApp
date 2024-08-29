@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Application.DTOs.ToDoItem;
+using ToDoApp.Application.Mappers;
 using ToDoApp.Domain.Exceptions;
 using ToDoApp.Infrastructure;
 
@@ -31,13 +32,7 @@ namespace ToDoApp.Application.Logic.Commands.ToDoItemCommand
             entity.ToDoItemId = request.Id;
             entity.IsCompleted = request.IsCompleted;
             await _dbContext.SaveChangesAsync();
-            return new ToDoItemDTO
-            {
-                Title = request.Title,
-                Description = request.Description,
-                Id = request.Id,
-                IsCompleted = request.IsCompleted
-            };
+            return entity.ToToDoItemDTO();
         }
     }
 }

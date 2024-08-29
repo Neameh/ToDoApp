@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Application.DTOs.ToDoItem;
+using ToDoApp.Application.Mappers;
 using ToDoApp.Domain.Exceptions;
 using ToDoApp.Infrastructure;
 
@@ -25,14 +26,7 @@ namespace ToDoApp.Application.Logic.Queries.ToDoItemQuery
             {
                 throw new NotFoundException("ToDoItem Not Found");
             }
-            var result = new ToDoItemDTO
-            {
-                Title = toDoItem.Title,
-                Description = toDoItem.Description,
-                Id = toDoItem.ToDoItemId,
-                IsCompleted=toDoItem.IsCompleted,
-            };
-            return result;
+            return toDoItem.ToToDoItemDTO();
         }
     }
 }

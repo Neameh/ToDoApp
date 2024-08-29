@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.DTOs.ToDoList;
+using ToDoApp.Application.Mappers;
 using ToDoApp.Domain.Exceptions;
 using ToDoApp.Infrastructure;
 
@@ -28,12 +29,7 @@ namespace ToDoApp.Application.Logic.Queries.ToDoListQuery
             {
                 throw new NotFoundException("ToDoList is not found");
             }
-            return new ToDoListDTO
-            {
-                Id = result.ToDoListId,
-                Title = result.Title,
-                Description = result.Description,
-            };
+            return result.ToToDoListDTO();
 
         }
     }

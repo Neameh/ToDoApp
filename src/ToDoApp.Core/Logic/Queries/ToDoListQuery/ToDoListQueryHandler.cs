@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.DTOs.ToDoList;
+using ToDoApp.Application.Mappers;
 using ToDoApp.Domain.Models;
 using ToDoApp.Infrastructure;
 
@@ -24,7 +25,7 @@ namespace ToDoApp.Application.Logic.Queries.ToDoListQuery
         {
 
             var toDoList = await _dbContext.ToDoLists.ToListAsync(cancellationToken);
-            var result = toDoList.Select(x => new ToDoListDTO { Id = x.ToDoListId, Title = x.Title, Description = x.Description }).ToList();
+            var result = toDoList.Select(x => x.ToToDoListDTO()).ToList();
             return result;
 
         }

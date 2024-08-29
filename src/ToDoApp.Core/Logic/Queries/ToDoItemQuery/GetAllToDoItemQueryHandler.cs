@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Application.DTOs.ToDoItem;
+using ToDoApp.Application.Mappers;
 using ToDoApp.Domain.Exceptions;
 using ToDoApp.Domain.Models;
 using ToDoApp.Infrastructure;
@@ -31,16 +32,9 @@ namespace ToDoApp.Application.Logic.Queries.ToDoItemQuery
             {
                 throw new NotFoundException("There is not ToDoItem List for selected List");
             }
-            var result = toDoItemList.Select(x => new ToDoItemDTO
-            {
-                Id = x.ToDoItemId,
-                Title = x.Title,
-                Description=x.Description,
-                IsCompleted = x.IsCompleted,
-            }).ToList();
+            var result = toDoItemList.Select(x => x.ToToDoItemDTO()).ToList();
 
             return result;
-
         }
 
 

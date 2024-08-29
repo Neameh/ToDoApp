@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.DTOs.ToDoList;
+using ToDoApp.Application.Mappers;
 using ToDoApp.Domain.Exceptions;
 using ToDoApp.Infrastructure;
 
@@ -32,12 +33,7 @@ namespace ToDoApp.Application.Logic.Commands.ToDoListCommand
             entity.ToDoListId = request.Id;
             await _dbContext.SaveChangesAsync();
 
-            var toDoListUpdated = new ToDoListDTO();
-            toDoListUpdated.Title = entity.Title;
-            toDoListUpdated.Description = entity.Description;
-            toDoListUpdated.Id = entity.ToDoListId;
-
-            return toDoListUpdated;
+            return entity.ToToDoListDTO();
         }
 
 
