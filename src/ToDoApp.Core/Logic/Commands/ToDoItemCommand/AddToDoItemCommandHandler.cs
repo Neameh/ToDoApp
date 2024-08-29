@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Application.DTOs;
 using ToDoApp.Application.DTOs.ToDoItem;
+using ToDoApp.Application.Mappers;
 using ToDoApp.Domain.Exceptions;
 using ToDoApp.Domain.Models;
 using ToDoApp.Infrastructure;
@@ -31,7 +32,7 @@ namespace ToDoApp.Application.Logic.Commands.ToDoItemCommand
             }
             // Create new ToDoItem object
             var entity = new ToDoItem();
-            // Check if the ToDoListId in the choosen list equal to requset.ToDoListId
+            // Check if the ToDoListId in the chosen list equal to requset.ToDoListId
             if (toDoList.ToDoListId == request.ToDoListId)
             {
                 entity.Title = request.Title;
@@ -42,13 +43,7 @@ namespace ToDoApp.Application.Logic.Commands.ToDoItemCommand
             await _dbContext.ToDoItems.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
-            return new ToDoItemDTO
-            {
-                Id=entity.ToDoItemId,
-                Title = entity.Title,
-                Description = entity.Description,
-                IsCompleted = entity.IsCompleted,
-            };
+            return entity.ToToDoItemDTO();
         }
     }
 }
